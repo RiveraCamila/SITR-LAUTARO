@@ -4,17 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SITR-Lautaro</title>
+    <title>SITR v2.0 Beta</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    <!-- HOME -->
+    <!-- HOME PRINCIPAL -->
     <div id="home" class="pantalla">
-        <h1>SITR-Lautaro</h1>
-        <h2>Sistema de Información Territorial Rural de Lautaro</h2>
+        <h1>SITR</h1>
+        <h2>Sistema de Información Territorial Rural</h2>
+
+        <div class="version-box">
+            Versión 2.0 Beta<br>
+            Desarrollado por Camila Rivera Polanco<br>
+            Ingeniera en Geomensura
+        </div>
+
+        <div class="card" onclick="mostrarPantalla('nuevoRegistro')">
+            ➕ Nuevo Registro
+        </div>
+
+        <div class="card" onclick="mostrarPantalla('consulta')">
+            🔎 Consultar Información
+        </div>
+
+        <div class="card" onclick="mostrarPantalla('administracion')">
+            ⚙ Administración
+        </div>
+    </div>
+
+    <!-- NUEVO REGISTRO -->
+    <div id="nuevoRegistro" class="pantalla oculto">
+        <h1>Nuevo Registro</h1>
 
         <div class="card" onclick="seleccionarModulo('catastro')">
             🏡 Catastro Predial
@@ -40,16 +63,66 @@
             👨‍👩‍👧 Social / Familiar
         </div>
 
-        <div class="card" onclick="seleccionarModulo('visor')">
+        <button onclick="volverHome()">Volver</button>
+    </div>
+
+    <!-- CONSULTA -->
+    <div id="consulta" class="pantalla oculto">
+        <h1>Consultar Información</h1>
+
+        <div class="card">
             🗺 Visor Territorial
         </div>
+
+        <div class="card">
+            📊 Reportes
+        </div>
+
+        <div class="card">
+            🔍 Buscar Registro
+        </div>
+
+        <button onclick="volverHome()">Volver</button>
+    </div>
+
+    <!-- ADMINISTRACIÓN -->
+    <div id="administracion" class="pantalla oculto">
+        <h1>Administración</h1>
+
+        <div class="card">
+            👤 Usuarios
+        </div>
+
+        <div class="card">
+            🗂 Capas SIG
+        </div>
+
+        <div class="card">
+            ⚙ Configuración
+        </div>
+
+        <div class="card">
+            ℹ Acerca de SITR
+        </div>
+
+        <button onclick="volverHome()">Volver</button>
     </div>
 
     <!-- RTB -->
-    <div id="mbt" class="pantalla oculto">
-
+    <div id="rtb" class="pantalla oculto">
         <h1>Registro Territorial Base</h1>
         <p class="paso">Paso 1 de 3</p>
+
+        <h3>Buscar Persona</h3>
+
+        <label>RUT</label>
+        <input type="text" id="rut" placeholder="12.345.678-9">
+
+        <div id="rutEstado" class="info-box">
+            Ingrese RUT para buscar automáticamente
+        </div>
+
+        <h3>Datos Personales</h3>
 
         <label>Nombres</label>
         <input type="text" id="nombres">
@@ -57,14 +130,23 @@
         <label>Apellidos</label>
         <input type="text" id="apellidos">
 
-        <label>RUT</label>
-        <input type="text" id="rut">
-
         <label>Teléfono</label>
         <input type="text" id="telefono">
 
-        <label>Fecha de visita</label>
+        <h3>Registro</h3>
+
+        <label>Fecha</label>
         <input type="date" id="fecha">
+
+        <label>Profesional Responsable</label>
+        <select id="profesional">
+            <option>Seleccione profesional</option>
+            <option>Camila Rivera Polanco</option>
+            <option>PRODER</option>
+            <option>DIDECO</option>
+            <option>SECPLAN</option>
+            <option>Otro</option>
+        </select>
 
         <h3>Ubicación</h3>
 
@@ -74,7 +156,7 @@
         </div>
 
         <div class="mapa-box">
-            Mapa (próximamente Leaflet)
+            Leaflet + GPS + Satélite
         </div>
 
         <button class="secundario">
@@ -82,118 +164,204 @@
         </button>
 
         <div class="nav-buttons">
-            <button onclick="volverHome()">Volver</button>
-            <button onclick="guardarRTB()">Siguiente</button>
-        </div>
-    </div>
+            <button onclick="mostrarPantalla('nuevoRegistro')">
+                Volver
+            </button>
 
+            <button onclick="guardarRTB()">
+                Continuar
+            </button>
+        </div>
     <!-- CATASTRO -->
     <div id="catastro" class="pantalla oculto">
-
         <h1>Catastro Predial</h1>
         <p class="paso">Paso 2 de 3</p>
 
-        <div class="accordion">
-            <div class="accordion-title">▼ Predio</div>
+        <label>Rol</label>
+        <input type="text">
 
-            <label>Rol</label>
-            <input type="text">
+        <label>Sector</label>
+        <input type="text">
 
-            <label>Sector</label>
-            <input type="text">
+        <label>Superficie</label>
+        <input type="text">
 
-            <label>Superficie</label>
-            <input type="text">
+        <label>Unidad</label>
+        <select>
+            <option>m²</option>
+            <option>ha</option>
+        </select>
 
-            <label>Unidad</label>
-            <select>
-                <option>m²</option>
-                <option>ha</option>
-            </select>
-        </div>
+        <label>Tenencia</label>
+        <select>
+            <option>Propietario</option>
+            <option>Heredero</option>
+            <option>Cesión</option>
+            <option>Posesión material</option>
+            <option>Arrendatario</option>
+            <option>Comodato</option>
+            <option>Otro</option>
+        </select>
 
-        <div class="accordion">
-            <div class="accordion-title">▼ Tenencia</div>
-
-            <select>
-                <option>Propietario</option>
-                <option>Heredero</option>
-                <option>Cesión</option>
-                <option>Posesión material</option>
-                <option>Arrendatario</option>
-                <option>Comodato</option>
-                <option>Otro</option>
-            </select>
-        </div>
-
-        <div class="accordion">
-            <div class="accordion-title">▼ Uso y Acceso</div>
-
-            <label>Uso</label>
-            <select>
-                <option>Habitacional</option>
-                <option>Agrícola</option>
-                <option>Ganadero</option>
-                <option>Forestal</option>
-                <option>Mixto</option>
-                <option>Eriazo</option>
-            </select>
-
-            <label>Acceso</label>
-            <select>
-                <option>Camino público</option>
-                <option>Servidumbre</option>
-                <option>Acceso informal</option>
-                <option>Sin acceso definido</option>
-            </select>
-        </div>
-
-        <div class="accordion">
-            <div class="accordion-title">▼ Servicios</div>
-
-            <div class="toggle-row">
-                Agua <input type="checkbox">
-            </div>
-
-            <div class="toggle-row">
-                APR <input type="checkbox">
-            </div>
-
-            <div class="toggle-row">
-                Electricidad <input type="checkbox">
-            </div>
-
-            <div class="toggle-row">
-                Alcantarillado <input type="checkbox">
-            </div>
-
-            <div class="toggle-row">
-                Internet <input type="checkbox">
-            </div>
-        </div>
-
-        <div class="nav-buttons">
-            <button onclick="volverRTB()">Volver</button>
-            <button onclick="guardarRegistro()">Guardar</button>
-        </div>
+        <button onclick="guardarRegistro()">Guardar</button>
+        <button onclick="mostrarPantalla('rtb')">Volver</button>
     </div>
 
-    <!-- CONFIRMACION -->
-    <div id="confirmacion" class="pantalla oculto">
+    <!-- DIAGNÓSTICO -->
+    <div id="diagnostico" class="pantalla oculto">
+        <h1>Diagnóstico Productivo</h1>
+        <p class="paso">Paso 2 de 3</p>
 
+        <label>Rubro principal</label>
+        <select>
+            <option>Agrícola</option>
+            <option>Ganadero</option>
+            <option>Hortícola</option>
+            <option>Apícola</option>
+            <option>Forestal</option>
+            <option>Avícola</option>
+            <option>Artesanía</option>
+            <option>Otro</option>
+        </select>
+
+        <label>Producción principal</label>
+        <input type="text">
+
+        <label>Cantidad anual</label>
+        <input type="text">
+
+        <button onclick="guardarRegistro()">Guardar</button>
+        <button onclick="mostrarPantalla('rtb')">Volver</button>
+    </div>
+
+    <!-- AYUDAS -->
+    <div id="ayudas" class="pantalla oculto">
+        <h1>Ayudas y Beneficios</h1>
+        <p class="paso">Paso 2 de 3</p>
+
+        <label>Institución</label>
+        <select>
+            <option>Municipalidad</option>
+            <option>INDAP</option>
+            <option>CONADI</option>
+            <option>SUBDERE</option>
+            <option>FOSIS</option>
+        </select>
+
+        <label>Tipo de ayuda</label>
+        <select>
+            <option>Subsidio</option>
+            <option>Insumos</option>
+            <option>Infraestructura</option>
+            <option>Capacitación</option>
+            <option>Equipamiento</option>
+        </select>
+
+        <label>Estado</label>
+        <select>
+            <option>Solicitado</option>
+            <option>Evaluación</option>
+            <option>Aprobado</option>
+            <option>Entregado</option>
+            <option>Rechazado</option>
+        </select>
+
+        <button onclick="guardarRegistro()">Guardar</button>
+        <button onclick="mostrarPantalla('rtb')">Volver</button>
+    </div>
+
+    <!-- EMERGENCIAS -->
+    <div id="emergencias" class="pantalla oculto">
+        <h1>Emergencias</h1>
+        <p class="paso">Paso 2 de 3</p>
+
+        <label>Tipo</label>
+        <select>
+            <option>Incendio</option>
+            <option>Inundación</option>
+            <option>Sequía</option>
+            <option>Helada</option>
+            <option>Temporal</option>
+            <option>Derrumbe</option>
+        </select>
+
+        <label>Severidad</label>
+        <select>
+            <option>Leve</option>
+            <option>Moderada</option>
+            <option>Grave</option>
+            <option>Crítica</option>
+        </select>
+
+        <button onclick="guardarRegistro()">Guardar</button>
+        <button onclick="mostrarPantalla('rtb')">Volver</button>
+    </div>
+
+    <!-- INFRAESTRUCTURA -->
+    <div id="infraestructura" class="pantalla oculto">
+        <h1>Infraestructura Rural</h1>
+        <p class="paso">Paso 2 de 3</p>
+
+        <label>Tipo</label>
+        <select>
+            <option>APR</option>
+            <option>Sede</option>
+            <option>Escuela</option>
+            <option>Posta</option>
+            <option>Puente</option>
+            <option>Alcantarilla</option>
+            <option>Cementerio indígena</option>
+        </select>
+
+        <label>Estado</label>
+        <select>
+            <option>Bueno</option>
+            <option>Regular</option>
+            <option>Malo</option>
+            <option>Crítico</option>
+        </select>
+
+        <button onclick="guardarRegistro()">Guardar</button>
+        <button onclick="mostrarPantalla('rtb')">Volver</button>
+    </div>
+
+    <!-- SOCIAL -->
+    <div id="social" class="pantalla oculto">
+        <h1>Social / Familiar</h1>
+        <p class="paso">Paso 2 de 3</p>
+
+        <label>Número de integrantes</label>
+        <input type="number">
+
+        <label>Vivienda</label>
+        <select>
+            <option>Propia</option>
+            <option>Cedida</option>
+            <option>Allegado</option>
+            <option>Arriendo</option>
+        </select>
+
+        <button onclick="guardarRegistro()">Guardar</button>
+        <button onclick="mostrarPantalla('rtb')">Volver</button>
+    </div>
+
+    <!-- CONFIRMACIÓN -->
+    <div id="confirmacion" class="pantalla oculto">
         <h1>Registro Guardado</h1>
-        <p>Paso 3 de 3</p>
 
         <div class="confirm-box">
             ID: SITR-000001
         </div>
 
-        <button onclick="volverHomeDesdeConfirmacion()">
+        <button onclick="volverHome()">
             Ir al inicio
         </button>
-
     </div>
 
-</body>
+    <footer>
+        SITR v2.0 Beta<br>
+        © 2026 Camila Rivera Polanco — Todos los derechos reservados
+    </footer>
 
+</body>
 </html>
