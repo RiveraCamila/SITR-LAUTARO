@@ -1,29 +1,52 @@
+function mostrarPantalla(idPantalla) {
+    const pantallas = document.querySelectorAll(".pantalla");
+
+    pantallas.forEach(pantalla => {
+        pantalla.classList.add("oculto");
+    });
+
+    document.getElementById(idPantalla).classList.remove("oculto");
+}
+
 function abrirMBT() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("mbt").style.display = "block";
+    mostrarPantalla("mbt");
 }
 
 function volverHome() {
-    document.getElementById("mbt").style.display = "none";
-    document.getElementById("home").style.display = "block";
+    mostrarPantalla("home");
 }
 
 function abrirCatastro() {
-    document.getElementById("mbt").style.display = "none";
-    document.getElementById("catastro").style.display = "block";
+    mostrarPantalla("catastro");
 }
 
 function volverMBT() {
-    document.getElementById("catastro").style.display = "none";
-    document.getElementById("mbt").style.display = "block";
+    mostrarPantalla("mbt");
 }
 
 function guardarRegistro() {
-    document.getElementById("catastro").style.display = "none";
-    document.getElementById("confirmacion").style.display = "block";
+    mostrarPantalla("confirmacion");
 }
 
 function volverHomeDesdeConfirmacion() {
-    document.getElementById("confirmacion").style.display = "none";
-    document.getElementById("home").style.display = "block";
+    mostrarPantalla("home");
+}
+
+/* ===== Preparado para SITR v1.1 (Leaflet) ===== */
+
+let mapaInicializado = false;
+let coordenadas = {
+    lat: null,
+    lon: null
+};
+
+function inicializarMapa() {
+    if (mapaInicializado) return;
+
+    console.log("Mapa listo para Leaflet");
+    mapaInicializado = true;
+}
+
+function obtenerUbicacion() {
+    console.log("GPS pendiente para v1.1");
 }
