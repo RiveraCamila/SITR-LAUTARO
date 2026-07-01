@@ -16,31 +16,39 @@
         <h1>SITR-Lautaro</h1>
         <h2>Sistema de Información Territorial Rural de Lautaro</h2>
 
-        <div class="card" onclick="abrirMBT()">
+        <div class="card" onclick="seleccionarModulo('catastro')">
             🏡 Catastro Predial
         </div>
 
-        <div class="card">
+        <div class="card" onclick="seleccionarModulo('diagnostico')">
             🌱 Diagnóstico Productivo
         </div>
 
-        <div class="card">
+        <div class="card" onclick="seleccionarModulo('ayudas')">
             🤝 Ayudas y Beneficios
         </div>
 
-        <div class="card">
+        <div class="card" onclick="seleccionarModulo('emergencias')">
             ⚠ Emergencias
         </div>
 
-        <div class="card">
+        <div class="card" onclick="seleccionarModulo('infraestructura')">
+            🏗 Infraestructura Rural
+        </div>
+
+        <div class="card" onclick="seleccionarModulo('social')">
+            👨‍👩‍👧 Social / Familiar
+        </div>
+
+        <div class="card" onclick="seleccionarModulo('visor')">
             🗺 Visor Territorial
         </div>
     </div>
 
-    <!-- MBT -->
+    <!-- RTB -->
     <div id="mbt" class="pantalla oculto">
 
-        <h1>Módulo Base Territorial</h1>
+        <h1>Registro Territorial Base</h1>
         <p class="paso">Paso 1 de 3</p>
 
         <label>Nombres</label>
@@ -69,11 +77,13 @@
             Mapa (próximamente Leaflet)
         </div>
 
-        <button class="secundario">📍 Obtener ubicación</button>
+        <button class="secundario">
+            📍 Obtener ubicación
+        </button>
 
         <div class="nav-buttons">
             <button onclick="volverHome()">Volver</button>
-            <button onclick="abrirCatastro()">Siguiente</button>
+            <button onclick="guardarRTB()">Siguiente</button>
         </div>
     </div>
 
@@ -163,10 +173,9 @@
         </div>
 
         <div class="nav-buttons">
-            <button onclick="volverMBT()">Volver</button>
+            <button onclick="volverRTB()">Volver</button>
             <button onclick="guardarRegistro()">Guardar</button>
         </div>
-
     </div>
 
     <!-- CONFIRMACION -->
@@ -186,4 +195,5 @@
     </div>
 
 </body>
+
 </html>
