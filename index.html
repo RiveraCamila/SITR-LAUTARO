@@ -1,94 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SITR-Lautaro</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
     <!-- HOME -->
-    <div id="home">
+    <div id="home" class="pantalla">
         <h1>SITR-Lautaro</h1>
         <h2>Sistema de Información Territorial Rural de Lautaro</h2>
 
-        <button onclick="abrirMBT()">Catastro Predial</button>
-        <br><br>
+        <div class="card" onclick="abrirMBT()">
+            🏡 Catastro Predial
+        </div>
 
-        <button>Diagnóstico Productivo</button>
-        <br><br>
+        <div class="card">
+            🌱 Diagnóstico Productivo
+        </div>
 
-        <button>Ayudas y Beneficios</button>
-        <br><br>
+        <div class="card">
+            🤝 Ayudas y Beneficios
+        </div>
 
-        <button>Emergencias</button>
-        <br><br>
+        <div class="card">
+            ⚠ Emergencias
+        </div>
 
-        <button>Visor Territorial</button>
+        <div class="card">
+            🗺 Visor Territorial
+        </div>
     </div>
 
+    <!-- MBT -->
+    <div id="mbt" class="pantalla oculto">
 
-    <!-- PASO 1: MBT -->
-    <div id="mbt" style="display:none;">
         <h1>Módulo Base Territorial</h1>
+        <p class="paso">Paso 1 de 3</p>
 
-        <label>Nombres</label><br>
-        <input type="text" id="nombres"><br><br>
+        <label>Nombres</label>
+        <input type="text" id="nombres">
 
-        <label>Apellidos</label><br>
-        <input type="text" id="apellidos"><br><br>
+        <label>Apellidos</label>
+        <input type="text" id="apellidos">
 
-        <label>RUT</label><br>
-        <input type="text" id="rut"><br><br>
+        <label>RUT</label>
+        <input type="text" id="rut">
 
-        <label>Teléfono</label><br>
-        <input type="text" id="telefono"><br><br>
+        <label>Teléfono</label>
+        <input type="text" id="telefono">
 
-        <label>Fecha de visita</label><br>
-        <input type="date" id="fecha"><br><br>
+        <label>Fecha de visita</label>
+        <input type="date" id="fecha">
 
         <h3>Ubicación</h3>
 
-        <div class="mapa">
-            MINI MAPA
+        <div class="tabs">
+            <button class="tab-btn active">Mapa</button>
+            <button class="tab-btn">Coordenadas</button>
         </div>
 
-        <br>
+        <div class="mapa-box">
+            Mapa (próximamente Leaflet)
+        </div>
 
-        <button>📍 Obtener ubicación</button>
-        <br><br>
+        <button class="secundario">📍 Obtener ubicación</button>
 
-        <button onclick="abrirCatastro()">Siguiente</button>
-        <button onclick="volverHome()">Volver</button>
+        <div class="nav-buttons">
+            <button onclick="volverHome()">Volver</button>
+            <button onclick="abrirCatastro()">Siguiente</button>
+        </div>
     </div>
 
+    <!-- CATASTRO -->
+    <div id="catastro" class="pantalla oculto">
 
-    <!-- PASO 2: CATASTRO -->
-    <div id="catastro" style="display:none;">
         <h1>Catastro Predial</h1>
+        <p class="paso">Paso 2 de 3</p>
 
-        <label>Rol</label><br>
-        <input type="text"><br><br>
+        <div class="accordion">
+            <div class="accordion-title">▼ Predio</div>
 
-        <label>Sector</label><br>
-        <input type="text"><br><br>
+            <label>Rol</label>
+            <input type="text">
 
-        <label>Superficie</label><br>
-        <input type="text"><br><br>
+            <label>Sector</label>
+            <input type="text">
 
-        <label>Unidad</label><br>
-        <select>
-            <option>m²</option>
-            <option>ha</option>
-        </select>
-        <br><br>
+            <label>Superficie</label>
+            <input type="text">
 
-        <label>Tenencia</label><br>
-        <select>
-            <option>Propietario</option>
-            <option>Heredero</option>
-            <option>Cesión</option>
-            <option>Posesión material</option>
-            <option>Arrendatario</
+            <label>Unidad</label>
+            <select>
+                <option>m²</option>
+                <option>ha</option>
+            </select>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-title">▼ Tenencia</div>
+
+            <select>
+                <option>Propietario</option>
+                <option>Heredero</option>
+                <option>Cesión</option>
+                <option>Posesión material</option>
+                <option>Arrendatario</option>
+                <option>Comodato</option>
+                <option>Otro</option>
+            </select>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-title">▼ Uso y Acceso</div>
+
+            <label>Uso</label>
+            <select>
+                <option>Habitacional</option>
+                <option>Agrícola</option>
+                <option>Ganadero</option>
+                <option>Forestal</option>
+                <option>Mixto</option>
+                <option>Eriazo</option>
+            </select>
+
+            <label>Acceso</label>
+            <select>
+                <option>Camino público</option>
+                <option>Servidumbre</option>
+                <option>Acceso informal</option>
+                <option>Sin acceso definido</option>
+            </select>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-title">▼ Servicios</div>
+
+            <div class="toggle-row">
+                Agua <input type="checkbox">
+            </div>
+
+            <div class="toggle-row">
+                APR <input type="checkbox">
+            </div>
+
+            <div class="toggle-row">
+                Electricidad <input type="checkbox">
+            </div>
+
+            <div class="toggle-row">
+                Alcantarillado <input type="checkbox">
+            </div>
+
+            <div class="toggle-row">
+                Internet <input type="checkbox">
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button onclick="volverMBT()">Volver</button>
+            <button onclick="guardarRegistro()">Guardar</button>
+        </div>
+
+    </div>
+
+    <!-- CONFIRMACION -->
+    <div id="confirmacion" class="pantalla oculto">
+
+        <h1>Registro Guardado</h1>
+        <p>Paso 3 de 3</p>
+
+        <div class="confirm-box">
+            ID: SITR-000001
+        </div>
+
+        <button onclick="volverHomeDesdeConfirmacion()">
+            Ir al inicio
+        </button>
+
+    </div>
+
+</body>
+</html>
