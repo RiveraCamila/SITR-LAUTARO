@@ -1,30 +1,16 @@
-/* =========================
-   SITR v2.0 Beta
-   Autora: Camila Rivera Polanco
-========================= */
+/* ===== SITR v2.1 Beta ===== */
 
-const SITR = {
-    moduloSeleccionado: null,
-    registroBase: {},
-    personas: [
-        {
-            rut: "18.700.436-9",
-            nombres: "Camila Fernanda",
-            apellidos: "Rivera Polanco",
-            telefono: "987654321"
-        }
-    ]
-};
+let contadorFTI = 1;
 
 /* =========================
-   NAVEGACIÓN
+   NAVEGACIÓN ENTRE PANTALLAS
 ========================= */
 
 function mostrarPantalla(idPantalla) {
     const pantallas = document.querySelectorAll(".pantalla");
 
-    pantallas.forEach(p => {
-        p.classList.add("oculto");
+    pantallas.forEach(pantalla => {
+        pantalla.classList.add("oculto");
     });
 
     document.getElementById(idPantalla).classList.remove("oculto");
@@ -35,81 +21,104 @@ function volverHome() {
 }
 
 /* =========================
-   SELECCIÓN DE MÓDULO
+   BÚSQUEDA FTI
 ========================= */
 
-function seleccionarModulo(modulo) {
-    SITR.moduloSeleccionado = modulo;
-    mostrarPantalla("rtb");
-}
+function buscarFTI() {
+    const input = document.getElementById("busquedaFTI").value.trim();
+    const resultados = document.getElementById("resultadosFTI");
 
-/* =========================
-   RTB
-========================= */
-
-function guardarRTB() {
-    SITR.registroBase = {
-        rut: document.getElementById("rut").value,
-        nombres: document.getElementById("nombres").value,
-        apellidos: document.getElementById("apellidos").value,
-        telefono: document.getElementById("telefono").value,
-        fecha: document.getElementById("fecha").value,
-        profesional: document.getElementById("profesional").value
-    };
-
-    abrirModuloSeleccionado();
-}
-
-function abrirModuloSeleccionado() {
-    if (!SITR.moduloSeleccionado) {
-        alert("No hay módulo seleccionado");
+    if (input === "") {
+        resultados.innerHTML = `
+            <div class="info-box">
+                Ingrese un criterio de búsqueda
+            </div>
+        `;
         return;
     }
 
-    mostrarPantalla(SITR.moduloSeleccionado);
-}
-
-/* =========================
-   GUARDADO FINAL
-========================= */
-
-function guardarRegistro() {
-    mostrarPantalla("confirmacion");
-}
-
-/* =========================
-   BÚSQUEDA AUTOMÁTICA RUT
-========================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-    const rutInput = document.getElementById("rut");
-
-    if (rutInput) {
-        rutInput.addEventListener("input", buscarRutAutomatico);
-    }
-});
-
-function buscarRutAutomatico() {
-    const rut = document.getElementById("rut").value.trim();
-
-    if (rut.length < 11) return;
-
-    const persona = SITR.personas.find(p => p.rut === rut);
-    const estado = document.getElementById("rutEstado");
-
-    if (persona) {
-        document.getElementById("nombres").value = persona.nombres;
-        document.getElementById("apellidos").value = persona.apellidos;
-        document.getElementById("telefono").value = persona.telefono;
-
-        estado.innerHTML =
-            "✓ Persona encontrada. Datos autocompletados.";
+    // Mock temporal
+    if (
+        input.toLowerCase().includes("camila") ||
+        input.includes("000001") ||
+        input.includes("123")
+    ) {
+        resultados.innerHTML = `
+            <div class="card" onclick="abrirFTIExistente()">
+                FTI-000001<br>
+                Camila Rivera Polanco<br>
+                Tipo: Persona<br>
+                Sector: Chumil
+            </div>
+        `;
     } else {
-        document.getElementById("nombres").value = "";
-        document.getElementById("apellidos").value = "";
-        document.getElementById("telefono").value = "";
-
-        estado.innerHTML =
-            "Nuevo registro territorial.";
+        resultados.innerHTML = `
+            <div class="info-box">
+                No se encontraron resultados
+            </div>
+        `;
     }
 }
+
+function abrirFTIExistente() {
+    document.getElementById("tituloFTI").innerText = "FTI-000001";
+    document.getElementById("nombreFTI").innerText = "Camila Rivera Polanco";
+    document.getElementById("tipoFTI").innerText = "Persona";
+
+    mostrarPantalla("perfilFTI");
+    mostrarTab("resumen");
+}
+
+/* =========================
+   CREACIÓN NUEVA FTI
+========================= */
+
+function abrirPerfilFTI(tipo) {
+    contadorFTI++;
+
+    let id = "FTI-" + String(contadorFTI).padStart(6, "0");
+
+    document.getElementById("tituloFTI").innerText = id;
+    document.getElementById("nombreFTI").innerText = "Nueva FTI";
+    document.getElementById("tipoFTI").innerText = tipo;
+
+    mostrarPantalla("perfilFTI");
+    mostrarTab("resumen");
+}
+
+/* =========================
+   TABS FTI
+========================= */
+
+function mostrarTab(tab) {
+    const tabs = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(t => {
+        t.classList.add("oculto");
+    });
+
+    document.getElementById("tab-" + tab).classList.remove("oculto");
+}
+
+/* =========================
+   FUTURO SITR
+========================= */
+
+/*
+Próximas versiones:
+
+v2.2
+- localStorage
+- CRUD real frontend
+
+v2.3
+- Leaflet
+- GPS
+- coordenadas
+
+v3.0
+- backend
+- usuarios
+- autenticación
+- base de datos
+*/
