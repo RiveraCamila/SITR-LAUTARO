@@ -1,101 +1,130 @@
-body {
+/* ===== SITR v2.1 Beta ===== */
+
+:root {
+    --azul: #1F4E79;
+    --verde: #4E8B57;
+    --ambar: #D9A441;
+    --rojo: #C65A5A;
+    --gris-fondo: #F4F6F8;
+    --gris-borde: #D7DEE6;
+    --texto: #1E293B;
+    --blanco: #FFFFFF;
+}
+
+* {
     margin: 0;
-    padding: 16px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: Arial, sans-serif;
-    background: #f4f6f8;
+    background: var(--gris-fondo);
+    color: var(--texto);
 }
 
 .pantalla {
-    max-width: 520px;
-    margin: auto;
-    background: white;
     padding: 20px;
-    border-radius: 18px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    margin-bottom: 20px;
+    min-height: 100vh;
 }
 
 .oculto {
     display: none;
 }
 
-h1 {
+/* ===== Header ===== */
+
+.header {
     text-align: center;
-    color: #1f4e79;
-    margin-top: 0;
-    font-size: 28px;
+    margin-bottom: 30px;
 }
 
-h2 {
-    text-align: center;
-    color: #666;
+.header h1 {
+    color: var(--azul);
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.header h2 {
     font-size: 16px;
+    font-weight: normal;
+    color: #475569;
+}
+
+/* ===== Títulos ===== */
+
+h1 {
+    color: var(--azul);
+    margin-bottom: 18px;
 }
 
 h3 {
-    color: #1f4e79;
-    margin-top: 24px;
+    margin-bottom: 15px;
+    color: var(--azul);
 }
 
-.paso {
-    text-align: center;
-    color: #666;
-}
-
-.version-box {
-    text-align: center;
-    background: #eef3f7;
-    padding: 14px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    color: #444;
-    font-size: 14px;
-}
+/* ===== Cards ===== */
 
 .card {
-    background: #1f4e79;
-    color: white;
-    padding: 22px;
-    border-radius: 14px;
+    background: var(--blanco);
+    border-radius: 18px;
+    padding: 18px;
     margin-bottom: 14px;
-    font-size: 19px;
-    font-weight: bold;
-    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border-left: 5px solid var(--verde);
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .card:hover {
-    opacity: 0.95;
+    transform: translateY(-2px);
 }
+
+.big-card {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.fti-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border-left: 6px solid var(--azul);
+}
+
+/* ===== Inputs ===== */
 
 label {
     display: block;
-    margin-top: 14px;
     margin-bottom: 6px;
+    margin-top: 14px;
     font-weight: bold;
 }
 
 input,
-select,
-textarea {
+select {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    font-size: 16px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--gris-borde);
+    background: white;
+    font-size: 15px;
 }
+
+/* ===== Botones ===== */
 
 button {
     width: 100%;
     padding: 14px;
+    margin-top: 14px;
     border: none;
-    border-radius: 12px;
-    background: #1f4e79;
+    border-radius: 14px;
+    background: var(--azul);
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
-    margin-top: 12px;
 }
 
 button:hover {
@@ -103,61 +132,95 @@ button:hover {
 }
 
 .secundario {
-    background: #5d7288;
+    background: var(--verde);
 }
+
+/* ===== Tabs ===== */
 
 .tabs {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
 }
 
-.tab-btn {
-    flex: 1;
-    margin-top: 0;
-}
-
-.tab-btn.active {
-    background: #163650;
-}
-
-.mapa-box {
-    width: 100%;
-    height: 220px;
-    background: #d8d8d8;
-    border-radius: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #444;
+.tabs button {
+    min-width: fit-content;
+    width: auto;
+    padding: 10px 16px;
+    margin: 0;
+    border-radius: 999px;
+    background: #DCE7F3;
+    color: var(--azul);
+    font-size: 14px;
     font-weight: bold;
 }
+
+.tabs button:hover {
+    background: var(--azul);
+    color: white;
+}
+
+.tab-content {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* ===== Info boxes ===== */
 
 .info-box {
-    background: #eef3f7;
-    padding: 12px;
-    border-radius: 10px;
+    background: #EDF4FA;
+    padding: 16px;
+    border-radius: 14px;
+    border-left: 5px solid var(--azul);
     margin-top: 10px;
-    color: #444;
 }
 
-.nav-buttons {
-    margin-top: 25px;
-}
+/* ===== Mapas ===== */
 
-.confirm-box {
-    background: #eef3f7;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
+.mapa-box {
+    margin-top: 20px;
+    height: 220px;
+    background: #DCE7F3;
+    border: 2px dashed var(--azul);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--azul);
     font-weight: bold;
-    margin: 20px 0;
 }
 
-footer {
+.grande {
+    height: 500px;
+}
+
+/* ===== Footer ===== */
+
+.footer-mini {
+    margin-top: 35px;
     text-align: center;
-    color: #666;
     font-size: 12px;
-    margin-top: 30px;
-    padding-bottom: 20px;
+    color: #64748B;
+}
+
+/* ===== Riesgo ===== */
+
+.riesgo-bajo {
+    color: green;
+}
+
+.riesgo-medio {
+    color: goldenrod;
+}
+
+.riesgo-alto {
+    color: orange;
+}
+
+.riesgo-critico {
+    color: red;
 }
