@@ -1,26 +1,30 @@
 /* =========================
-   STATE SITR
+   SITR v2.0 Beta
+   Autora: Camila Rivera Polanco
 ========================= */
 
 const SITR = {
     moduloSeleccionado: null,
     registroBase: {},
-    coordenadas: {
-        lat: null,
-        lon: null
-    },
-    mapaInicializado: false
+    personas: [
+        {
+            rut: "18.700.436-9",
+            nombres: "Camila Fernanda",
+            apellidos: "Rivera Polanco",
+            telefono: "987654321"
+        }
+    ]
 };
 
 /* =========================
-   ROUTER / NAVEGACIÓN
+   NAVEGACIÓN
 ========================= */
 
 function mostrarPantalla(idPantalla) {
     const pantallas = document.querySelectorAll(".pantalla");
 
-    pantallas.forEach(pantalla => {
-        pantalla.classList.add("oculto");
+    pantallas.forEach(p => {
+        p.classList.add("oculto");
     });
 
     document.getElementById(idPantalla).classList.remove("oculto");
@@ -30,98 +34,82 @@ function volverHome() {
     mostrarPantalla("home");
 }
 
-function volverHomeDesdeConfirmacion() {
-    mostrarPantalla("home");
-}
-
 /* =========================
-   HOME / SELECCIÓN MÓDULO
+   SELECCIÓN DE MÓDULO
 ========================= */
 
 function seleccionarModulo(modulo) {
     SITR.moduloSeleccionado = modulo;
-
-    console.log("Módulo seleccionado:", modulo);
-
-    mostrarPantalla("mbt");
+    mostrarPantalla("rtb");
 }
 
 /* =========================
-   RTB (antes MBT)
+   RTB
 ========================= */
 
 function guardarRTB() {
     SITR.registroBase = {
+        rut: document.getElementById("rut").value,
         nombres: document.getElementById("nombres").value,
         apellidos: document.getElementById("apellidos").value,
-        rut: document.getElementById("rut").value,
         telefono: document.getElementById("telefono").value,
-        fecha: document.getElementById("fecha").value
+        fecha: document.getElementById("fecha").value,
+        profesional: document.getElementById("profesional").value
     };
-
-    console.log("RTB guardado:", SITR.registroBase);
 
     abrirModuloSeleccionado();
 }
 
 function abrirModuloSeleccionado() {
-    switch (SITR.moduloSeleccionado) {
-        case "catastro":
-            mostrarPantalla("catastro");
-            break;
-
-        case "diagnostico":
-            alert("Módulo Diagnóstico en construcción");
-            break;
-
-        case "ayudas":
-            alert("Módulo Ayudas en construcción");
-            break;
-
-        case "emergencias":
-            alert("Módulo Emergencias en construcción");
-            break;
-
-        case "infraestructura":
-            alert("Módulo Infraestructura en construcción");
-            break;
-
-        case "social":
-            alert("Módulo Social en construcción");
-            break;
-
-        case "visor":
-            alert("Visor territorial en construcción");
-            break;
-
-        default:
-            alert("No se seleccionó módulo");
+    if (!SITR.moduloSeleccionado) {
+        alert("No hay módulo seleccionado");
+        return;
     }
+
+    mostrarPantalla(SITR.moduloSeleccionado);
 }
 
 /* =========================
-   CATASTRO
+   GUARDADO FINAL
 ========================= */
-
-function volverRTB() {
-    mostrarPantalla("mbt");
-}
 
 function guardarRegistro() {
     mostrarPantalla("confirmacion");
 }
 
 /* =========================
-   GIS
+   BÚSQUEDA AUTOMÁTICA RUT
 ========================= */
 
-function inicializarMapa() {
-    if (SITR.mapaInicializado) return;
+document.addEventListener("DOMContentLoaded", function () {
+    const rutInput = document.getElementById("rut");
 
-    console.log("Mapa listo para Leaflet");
-    SITR.mapaInicializado = true;
-}
+    if (rutInput) {
+        rutInput.addEventListener("input", buscarRutAutomatico);
+    }
+});
 
-function obtenerUbicacion() {
-    console.log("GPS pendiente para v1.1");
+function buscarRutAutomatico() {
+    const rut = document.getElementById("rut").value.trim();
+
+    if (rut.length < 11) return;
+
+    const persona = SITR.personas.find(p => p.rut === rut);
+    const estado = document.getElementById("rutEstado");
+
+    if (persona) {
+        document.getElementById("nombres").value = persona.nombres;
+        document.getElementById("apellidos").value = persona.apellidos;
+        document.getElementById("telefono").value = persona.telefono;
+
+        estado.innerHTML =
+            "✓ Persona encontrada. Datos autocompletados.";
+    } else {
+        document.getElementById("nombres").value = "";
+        document.getElementById("apellidos").value = "";
+        document.getElementById("telefono").value = "";
+
+        estado.innerHTML =
+            "Nuevo registro territorial.";
+    }
 }
