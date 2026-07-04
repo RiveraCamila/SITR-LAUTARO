@@ -1,250 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SITR v2.1 Beta</title>
+    <title>SITR-LAUTARO</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
-
 <body>
 
-    <!-- HOME -->
-    <div id="home" class="pantalla">
+    <!-- Header -->
+    <header class="app-header">
+        <h1>SITR-LAUTARO</h1>
+        <p>Sistema de Información Territorial Rural</p>
+        <small>PRODER • Municipalidad de Lautaro</small>
+    </header>
 
-        <div class="header">
-            <h1>SITR</h1>
-            <h2>Sistema de Información Territorial Rural</h2>
-        </div>
+    <!-- Contenedor SPA -->
+    <main id="app"></main>
 
-        <div class="card big-card" onclick="mostrarPantalla('buscarFTI')">
-            ➕ Nueva / Buscar FTI
-        </div>
+    <!-- Footer -->
+    <footer class="app-footer">
+        <small>Versión prototipo 0.1 | CRP</small>
+    </footer>
 
-        <div class="card big-card" onclick="mostrarPantalla('consultaSIG')">
-            🔎 Consulta SIG
-        </div>
-
-        <div class="card big-card" onclick="mostrarPantalla('administracion')">
-            ⚙ Administración
-        </div>
-
-        <div class="footer-mini">
-            SITR v2.1 Beta • © CRP 2026
-        </div>
-    </div>
-
-    <!-- BUSCAR FTI -->
-    <div id="buscarFTI" class="pantalla oculto">
-        <h1>Buscar FTI</h1>
-
-        <label>Búsqueda inteligente</label>
-        <input type="text" id="busquedaFTI"
-            placeholder="RUT / ID FTI / Nombre / Rol / Sector">
-
-        <button onclick="buscarFTI()">Buscar</button>
-
-        <div id="resultadosFTI">
-            <div class="info-box">
-                Sin resultados
-            </div>
-        </div>
-
-        <button class="secundario" onclick="mostrarPantalla('crearFTI')">
-            ➕ Crear nueva FTI
-        </button>
-
-        <button onclick="volverHome()">Volver</button>
-    </div>
-
-    <!-- CREAR FTI -->
-    <div id="crearFTI" class="pantalla oculto">
-        <h1>Crear FTI</h1>
-
-        <p>Seleccione tipo de ficha</p>
-
-        <div class="card" onclick="abrirPerfilFTI('Persona')">
-            👤 Persona
-        </div>
-
-        <div class="card" onclick="abrirPerfilFTI('Familia')">
-            👨‍👩‍👧 Familia
-        </div>
-
-        <div class="card" onclick="abrirPerfilFTI('Predio')">
-            🏞 Predio
-        </div>
-
-        <div class="card" onclick="abrirPerfilFTI('Comunidad')">
-            🏘 Comunidad
-        </div>
-
-        <div class="card" onclick="abrirPerfilFTI('Organización')">
-            🏢 Organización
-        </div>
-
-        <div class="card" onclick="abrirPerfilFTI('Infraestructura')">
-            🏗 Infraestructura
-        </div>
-
-        <button onclick="mostrarPantalla('buscarFTI')">
-            Volver
-        </button>
-    </div>
-
-    <!-- PERFIL FTI -->
-    <div id="perfilFTI" class="pantalla oculto">
-        <h1 id="tituloFTI">FTI-000001</h1>
-
-        <div class="fti-card">
-            <strong id="nombreFTI">Nueva FTI</strong><br>
-            Tipo: <span id="tipoFTI">Persona</span><br>
-            Sector: Sin definir
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs">
-            <button onclick="mostrarTab('resumen')">Resumen</button>
-            <button onclick="mostrarTab('territorio')">Territorio</button>
-            <button onclick="mostrarTab('riesgo')">Riesgo</button>
-            <button onclick="mostrarTab('relaciones')">Relaciones</button>
-            <button onclick="mostrarTab('historial')">Historial</button>
-            <button onclick="mostrarTab('adjuntos')">Adjuntos</button>
-            <button onclick="mostrarTab('acciones')">Acciones</button>
-        </div>
-
-        <!-- RESUMEN -->
-        <div id="tab-resumen" class="tab-content">
-            <h3>Resumen</h3>
-
-            <label>Nombre</label>
-            <input type="text">
-
-            <label>Identificador externo</label>
-            <input type="text">
-
-            <label>Estado</label>
-            <select>
-                <option>Activa</option>
-                <option>Inactiva</option>
-            </select>
-        </div>
-
-        <!-- TERRITORIO -->
-        <div id="tab-territorio" class="tab-content oculto">
-            <h3>Territorio</h3>
-
-            <label>Región</label>
-            <input type="text" value="La Araucanía">
-
-            <label>Comuna</label>
-            <input type="text" value="Lautaro">
-
-            <label>Sector</label>
-            <input type="text">
-
-            <label>Localidad</label>
-            <input type="text">
-
-            <div class="mapa-box">
-                Leaflet (próximamente)
-            </div>
-        </div>
-
-        <!-- RIESGO -->
-        <div id="tab-riesgo" class="tab-content oculto">
-            <h3>Riesgo y Mitigación</h3>
-
-            <label>IVT Score</label>
-            <input type="number">
-
-            <label>Nivel</label>
-            <select>
-                <option>Bajo</option>
-                <option>Medio</option>
-                <option>Alto</option>
-                <option>Crítico</option>
-            </select>
-
-            <label>Mitigación activa</label>
-            <select>
-                <option>No</option>
-                <option>Sí</option>
-            </select>
-        </div>
-
-        <!-- RELACIONES -->
-        <div id="tab-relaciones" class="tab-content oculto">
-            <h3>Relaciones</h3>
-
-            <div class="info-box">
-                Sin relaciones registradas
-            </div>
-        </div>
-
-        <!-- HISTORIAL -->
-        <div id="tab-historial" class="tab-content oculto">
-            <h3>Historial</h3>
-
-            <div class="info-box">
-                REG-000001 — Catastro Predial
-            </div>
-        </div>
-
-        <!-- ADJUNTOS -->
-        <div id="tab-adjuntos" class="tab-content oculto">
-            <h3>Adjuntos</h3>
-
-            <div class="info-box">
-                Sin archivos adjuntos
-            </div>
-        </div>
-
-        <!-- ACCIONES -->
-        <div id="tab-acciones" class="tab-content oculto">
-            <h3>Acciones</h3>
-
-            <div class="card">🏡 Catastro Predial</div>
-            <div class="card">🌱 Diagnóstico Productivo</div>
-            <div class="card">🤝 Ayudas y Beneficios</div>
-            <div class="card">⚠ Emergencias</div>
-            <div class="card">🏗 Infraestructura Rural</div>
-            <div class="card">📋 Caracterización Complementaria</div>
-        </div>
-
-        <button onclick="mostrarPantalla('buscarFTI')">
-            Volver
-        </button>
-    </div>
-
-    <!-- CONSULTA SIG -->
-    <div id="consultaSIG" class="pantalla oculto">
-        <h1>Consulta SIG</h1>
-
-        <div class="mapa-box grande">
-            Visor SIG
-        </div>
-
-        <button onclick="volverHome()">Volver</button>
-    </div>
-
-    <!-- ADMIN -->
-    <div id="administracion" class="pantalla oculto">
-        <h1>Administración</h1>
-
-        <div class="card">Usuarios</div>
-        <div class="card">Capas SIG</div>
-        <div class="card">Configuración</div>
-        <div class="card">Acerca de SITR</div>
-
-        <button onclick="volverHome()">Volver</button>
-
-        <div class="footer-mini">
-            🛡 Gobernanza de Datos
-        </div>
-    </div>
-
+    <script src="app.js"></script>
 </body>
 </html>
