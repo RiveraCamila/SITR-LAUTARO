@@ -5,12 +5,12 @@
     box-sizing: border-box;
 }
 
-/* VARIABLES SITR */
+/* VARIABLES */
 :root {
-    --primary: #1E3A46;      /* Azul petróleo */
-    --secondary: #355C6B;    /* Azul grisáceo */
-    --background: #F3F5F7;   /* Fondo */
-    --card: #FFFFFF;         /* Cards */
+    --primary: #1E3A46;
+    --secondary: #355C6B;
+    --background: #F3F5F7;
+    --card: #FFFFFF;
     --text: #22313A;
     --border: #DCE3E7;
     --shadow: 0 4px 16px rgba(0,0,0,0.08);
@@ -45,10 +45,6 @@ body {
     margin-bottom: 4px;
 }
 
-.app-header small {
-    opacity: 0.85;
-}
-
 /* APP */
 #app {
     flex: 1;
@@ -58,19 +54,18 @@ body {
     padding: 24px 18px;
 }
 
-/* CARDS */
+/* CARD */
 .card {
     background: var(--card);
     border-radius: 18px;
-    padding: 20px;
+    padding: 22px;
     box-shadow: var(--shadow);
-    margin-bottom: 20px;
 }
 
-/* BUTTONS */
+/* BUTTON */
 .btn {
     width: 100%;
-    height: 72px;
+    height: 68px;
     border: none;
     border-radius: 16px;
     background: var(--primary);
@@ -78,17 +73,26 @@ body {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 18px;
-    transition: 0.2s;
+    margin-bottom: 16px;
 }
 
 .btn:hover {
     background: var(--secondary);
 }
 
-/* INPUTS */
+.btn-back {
+    background: none;
+    border: none;
+    color: var(--secondary);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* FORM */
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 label {
@@ -97,20 +101,24 @@ label {
     margin-bottom: 8px;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
     width: 100%;
     padding: 14px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    font-size: 16px;
-    background: white;
+    font-size: 15px;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--secondary);
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* TITLES */
+h2 {
+    margin-bottom: 18px;
 }
 
 /* FOOTER */
