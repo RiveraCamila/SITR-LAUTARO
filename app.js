@@ -1,10 +1,5 @@
-/* ==========================
-   SITR-LAUTARO v0.1
-========================== */
-
 const app = document.getElementById("app");
 
-/* Estado temporal */
 let datosSITR = {
     usuario: {
         nombres: "",
@@ -20,10 +15,10 @@ let datosSITR = {
     emergencias: {}
 };
 
-/* Inicio */
 window.onload = function () {
     renderHome();
 };
+
 function renderHome() {
     app.innerHTML = `
         <div class="card">
@@ -41,12 +36,11 @@ function renderHome() {
         </div>
     `;
 }
+
 function renderNuevoRegistro() {
     app.innerHTML = `
         <div class="card">
-            <button class="btn-back" onclick="renderHome()">
-                ← Atrás
-            </button>
+            <button class="btn-back" onclick="renderHome()">← Atrás</button>
 
             <h2>Nuevo Registro</h2>
 
@@ -74,91 +68,130 @@ function renderNuevoRegistro() {
                 <label>Sector</label>
                 <select id="sector">
                     <option value="">Seleccione</option>
-                    <option ${datosSITR.usuario.sector==="Dollinco"?"selected":""}>Dollinco</option>
-                    <option ${datosSITR.usuario.sector==="Muco"?"selected":""}>Muco</option>
-                    <option ${datosSITR.usuario.sector==="Malpichahue"?"selected":""}>Malpichahue</option>
-                    <option ${datosSITR.usuario.sector==="Vega Larga"?"selected":""}>Vega Larga</option>
+                    <option>Dollinco</option>
+                    <option>Muco</option>
+                    <option>Malpichahue</option>
+                    <option>Vega Larga</option>
                 </select>
             </div>
 
-            <button class="btn" onclick="guardarRegistroBase()">
-                Siguiente
-            </button>
+            <button class="btn" onclick="guardarRegistroBase()">Siguiente</button>
         </div>
     `;
 }
+
 function guardarRegistroBase() {
-    datosSITR.usuario.nombres =
-        document.getElementById("nombres").value;
-
-    datosSITR.usuario.apellidos =
-        document.getElementById("apellidos").value;
-
-    datosSITR.usuario.rut =
-        document.getElementById("rut").value;
-
-    datosSITR.usuario.telefono =
-        document.getElementById("telefono").value;
-
-    datosSITR.usuario.sector =
-        document.getElementById("sector").value;
+    datosSITR.usuario.nombres = document.getElementById("nombres").value;
+    datosSITR.usuario.apellidos = document.getElementById("apellidos").value;
+    datosSITR.usuario.rut = document.getElementById("rut").value;
+    datosSITR.usuario.telefono = document.getElementById("telefono").value;
+    datosSITR.usuario.sector = document.getElementById("sector").value;
 
     renderTipoRegistro();
 }
+
 function renderTipoRegistro() {
     app.innerHTML = `
         <div class="card">
-            <button class="btn-back" onclick="renderNuevoRegistro()">
-                ← Atrás
-            </button>
+            <button class="btn-back" onclick="renderNuevoRegistro()">← Atrás</button>
 
             <h2>Tipo de Registro</h2>
 
-            <button class="btn" onclick="renderCatastroPredial()">
-                Catastro Predial
-            </button>
-
-            <button class="btn" onclick="renderDiagnostico()">
-                Diagnóstico Productivo
-            </button>
-
-            <button class="btn" onclick="renderAyudas()">
-                Ayudas / Beneficios
-            </button>
-
-            <button class="btn" onclick="renderEmergencias()">
-                Emergencias
-            </button>
+            <button class="btn" onclick="renderCatastroPredial()">Catastro Predial</button>
+            <button class="btn" onclick="renderDiagnostico()">Diagnóstico Productivo</button>
+            <button class="btn" onclick="renderAyudas()">Ayudas / Beneficios</button>
+            <button class="btn" onclick="renderEmergencias()">Emergencias</button>
         </div>
     `;
 }
-function renderTipoRegistro() {
+
+function renderCatastroPredial() {
     app.innerHTML = `
         <div class="card">
-            <button class="btn-back" onclick="renderNuevoRegistro()">
-                ← Atrás
-            </button>
+            <button class="btn-back" onclick="renderTipoRegistro()">← Atrás</button>
+            <h2>Catastro Predial</h2>
 
-            <h2>Tipo de Registro</h2>
+            <div class="form-group">
+                <label>Rol de Avalúo</label>
+                <input id="rol">
+            </div>
 
-            <button class="btn" onclick="renderCatastroPredial()">
-                Catastro Predial
-            </button>
+            <div class="form-group">
+                <label>Superficie (ha)</label>
+                <input id="superficie">
+            </div>
 
-            <button class="btn" onclick="renderDiagnostico()">
-                Diagnóstico Productivo
-            </button>
-
-            <button class="btn" onclick="renderAyudas()">
-                Ayudas / Beneficios
-            </button>
-
-            <button class="btn" onclick="renderEmergencias()">
-                Emergencias
-            </button>
+            <button class="btn" onclick="guardarModulo('catastro')">Guardar Registro</button>
         </div>
     `;
 }
+
+function renderDiagnostico() {
+    app.innerHTML = `
+        <div class="card">
+            <button class="btn-back" onclick="renderTipoRegistro()">← Atrás</button>
+            <h2>Diagnóstico Productivo</h2>
+
+            <div class="form-group">
+                <label>Rubro Principal</label>
+                <input id="rubro">
+            </div>
+
+            <button class="btn" onclick="guardarModulo('diagnostico')">Guardar Registro</button>
+        </div>
+    `;
+}
+
+function renderAyudas() {
+    app.innerHTML = `
+        <div class="card">
+            <button class="btn-back" onclick="renderTipoRegistro()">← Atrás</button>
+            <h2>Ayudas / Beneficios</h2>
+
+            <div class="form-group">
+                <label>Programa</label>
+                <input id="programa">
+            </div>
+
+            <button class="btn" onclick="guardarModulo('ayudas')">Guardar Registro</button>
+        </div>
+    `;
+}
+
+function renderEmergencias() {
+    app.innerHTML = `
+        <div class="card">
+            <button class="btn-back" onclick="renderTipoRegistro()">← Atrás</button>
+            <h2>Emergencias</h2>
+
+            <div class="form-group">
+                <label>Tipo Evento</label>
+                <select id="evento">
+                    <option>Temporal</option>
+                    <option>Helada</option>
+                    <option>Incendio</option>
+                    <option>Inundación</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="guardarModulo('emergencias')">Guardar Registro</button>
+        </div>
+    `;
+}
+
+function guardarModulo(modulo) {
+    datosSITR.modulo = modulo;
+
+    alert(
+        "Registro guardado (modo prototipo)\n\n" +
+        "Usuario: " + datosSITR.usuario.nombres + " " +
+        datosSITR.usuario.apellidos + "\n" +
+        "Módulo: " + modulo
+    );
+
+    renderHome();
+}
+
 function buscarRegistro() {
     alert("Módulo Buscar Registro en construcción");
 }
