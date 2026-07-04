@@ -1,24 +1,29 @@
-/* =========================
+/* ==========================
    SITR-LAUTARO v0.1
-========================= */
+========================== */
 
 const app = document.getElementById("app");
 
-/* ---------- ESTADO TEMPORAL ---------- */
-let registroActual = {
-    nombres: "",
-    apellidos: "",
-    rut: "",
-    telefono: "",
-    sector: ""
+/* Estado temporal */
+let datosSITR = {
+    usuario: {
+        nombres: "",
+        apellidos: "",
+        rut: "",
+        telefono: "",
+        sector: ""
+    },
+    modulo: "",
+    catastro: {},
+    diagnostico: {},
+    ayudas: {},
+    emergencias: {}
 };
 
-/* ---------- INICIO ---------- */
-window.onload = () => {
+/* Inicio */
+window.onload = function () {
     renderHome();
 };
-
-/* ---------- HOME ---------- */
 function renderHome() {
     app.innerHTML = `
         <div class="card">
@@ -36,98 +41,128 @@ function renderHome() {
         </div>
     `;
 }
-
-/* ---------- NUEVO REGISTRO ---------- */
 function renderNuevoRegistro() {
     app.innerHTML = `
         <div class="card">
+            <button class="btn-back" onclick="renderHome()">
+                ← Atrás
+            </button>
+
             <h2>Nuevo Registro</h2>
-            <br>
 
             <div class="form-group">
                 <label>Nombres</label>
-                <input id="nombres">
+                <input id="nombres" value="${datosSITR.usuario.nombres}">
             </div>
 
             <div class="form-group">
                 <label>Apellidos</label>
-                <input id="apellidos">
+                <input id="apellidos" value="${datosSITR.usuario.apellidos}">
             </div>
 
             <div class="form-group">
                 <label>RUT</label>
-                <input id="rut">
+                <input id="rut" value="${datosSITR.usuario.rut}">
             </div>
 
             <div class="form-group">
                 <label>Teléfono</label>
-                <input id="telefono">
+                <input id="telefono" value="${datosSITR.usuario.telefono}">
             </div>
 
             <div class="form-group">
                 <label>Sector</label>
                 <select id="sector">
                     <option value="">Seleccione</option>
-                    <option>Dollinco</option>
-                    <option>Muco</option>
-                    <option>Malpichahue</option>
-                    <option>Vega Larga</option>
+                    <option ${datosSITR.usuario.sector==="Dollinco"?"selected":""}>Dollinco</option>
+                    <option ${datosSITR.usuario.sector==="Muco"?"selected":""}>Muco</option>
+                    <option ${datosSITR.usuario.sector==="Malpichahue"?"selected":""}>Malpichahue</option>
+                    <option ${datosSITR.usuario.sector==="Vega Larga"?"selected":""}>Vega Larga</option>
                 </select>
             </div>
 
             <button class="btn" onclick="guardarRegistroBase()">
                 Siguiente
             </button>
-
-            <button class="btn" onclick="renderHome()">
-                Volver
-            </button>
         </div>
     `;
 }
-
-/* ---------- GUARDAR BASE ---------- */
 function guardarRegistroBase() {
-    registroActual.nombres = document.getElementById("nombres").value;
-    registroActual.apellidos = document.getElementById("apellidos").value;
-    registroActual.rut = document.getElementById("rut").value;
-    registroActual.telefono = document.getElementById("telefono").value;
-    registroActual.sector = document.getElementById("sector").value;
+    datosSITR.usuario.nombres =
+        document.getElementById("nombres").value;
+
+    datosSITR.usuario.apellidos =
+        document.getElementById("apellidos").value;
+
+    datosSITR.usuario.rut =
+        document.getElementById("rut").value;
+
+    datosSITR.usuario.telefono =
+        document.getElementById("telefono").value;
+
+    datosSITR.usuario.sector =
+        document.getElementById("sector").value;
 
     renderTipoRegistro();
 }
-
-/* ---------- TIPO REGISTRO ---------- */
 function renderTipoRegistro() {
     app.innerHTML = `
         <div class="card">
-            <h2>Tipo de Registro</h2>
-            <br>
+            <button class="btn-back" onclick="renderNuevoRegistro()">
+                ← Atrás
+            </button>
 
-            <button class="btn" onclick="alert('Catastro Predial')">
+            <h2>Tipo de Registro</h2>
+
+            <button class="btn" onclick="renderCatastroPredial()">
                 Catastro Predial
             </button>
 
-            <button class="btn" onclick="alert('Diagnóstico Productivo')">
+            <button class="btn" onclick="renderDiagnostico()">
                 Diagnóstico Productivo
             </button>
 
-            <button class="btn" onclick="alert('Ayudas / Beneficios')">
+            <button class="btn" onclick="renderAyudas()">
                 Ayudas / Beneficios
             </button>
 
-            <button class="btn" onclick="alert('Emergencias')">
+            <button class="btn" onclick="renderEmergencias()">
                 Emergencias
             </button>
         </div>
     `;
 }
+function renderTipoRegistro() {
+    app.innerHTML = `
+        <div class="card">
+            <button class="btn-back" onclick="renderNuevoRegistro()">
+                ← Atrás
+            </button>
 
-/* ---------- FUNCIONES TEMPORALES ---------- */
+            <h2>Tipo de Registro</h2>
+
+            <button class="btn" onclick="renderCatastroPredial()">
+                Catastro Predial
+            </button>
+
+            <button class="btn" onclick="renderDiagnostico()">
+                Diagnóstico Productivo
+            </button>
+
+            <button class="btn" onclick="renderAyudas()">
+                Ayudas / Beneficios
+            </button>
+
+            <button class="btn" onclick="renderEmergencias()">
+                Emergencias
+            </button>
+        </div>
+    `;
+}
 function buscarRegistro() {
-    alert("Módulo en construcción");
+    alert("Módulo Buscar Registro en construcción");
 }
 
 function abrirVisor() {
-    alert("Visor territorial en construcción");
+    alert("Visor Territorial en construcción");
 }
